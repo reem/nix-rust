@@ -21,3 +21,5 @@ pub mod stat;
 pub mod utsname;
 
 pub mod wait;
+
+pub mod mman;
