@@ -1,6 +1,6 @@
 use std::fmt;
 use std::os::errno;
-use std::num::from_int;
+use std::num::from_uint;
 use libc::c_int;
 
 pub use self::consts::*;
