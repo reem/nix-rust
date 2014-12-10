@@ -76,6 +76,7 @@ pub mod signal {
     use libc::c_int;
 
     bitflags!(
+        #[deriving(Copy)]
         flags SockFlag: libc::c_ulong {
             const SA_NOCLDSTOP = 0x00000001,
             const SA_NOCLDWAIT = 0x00000002,
@@ -115,6 +116,7 @@ pub mod signal {
     pub type SigInfoHandler = extern fn(libc::c_int, info: *const super::SigInfo, *const ());
 
     #[repr(C)]
+    #[allow(missing_copy_implementations)]
     pub struct sigaction {
         pub sa_handler: SigHandler,
         pub sa_sigaction: SigInfoHandler,
@@ -125,12 +127,14 @@ pub mod signal {
 
     #[repr(C)]
     #[cfg(target_word_size = "32")]
+    #[deriving(Copy)]
     pub struct sigset_t {
         __val: [libc::c_ulong, ..32],
     }
 
     #[repr(C)]
     #[cfg(target_word_size = "64")]
+    #[deriving(Copy)]
     pub struct sigset_t {
         __val: [libc::c_ulong, ..16],
     }
@@ -355,6 +359,7 @@ mod ffi {
     }
 }
 
+#[deriving(Copy)]
 pub struct SigSet {
     sigset: sigset_t
 }
