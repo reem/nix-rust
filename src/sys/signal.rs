@@ -245,6 +245,7 @@ pub mod signal {
     use libc;
 
     bitflags!(
+        #[deriving(Copy)]
         flags SockFlag: libc::c_int {
             const SA_NOCLDSTOP = 0x0008,
             const SA_NOCLDWAIT = 0x0020,
@@ -289,6 +290,7 @@ pub mod signal {
 
     #[cfg(any(target_os = "macos", target_os = "ios"))]
     #[repr(C)]
+    #[allow(missing_copy_implementations)]
     pub struct sigaction {
         pub sa_handler: SigHandler,
         sa_tramp: *mut libc::c_void,
